@@ -6,6 +6,7 @@ It takes its input from STDIN and relays control commands to
 the drone. It can be executed on any pc-based linux host as
 well as on the drone itself.
 
+
 ARPilot is built on top of libarpilot, which offers all the 
 needed functionality to operate the drone.
 
