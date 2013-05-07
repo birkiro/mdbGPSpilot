@@ -275,9 +275,9 @@ void pilot_setup()
 {
   Serial.print("\n\n$QUIT\n");
   delay(1500);
-  Serial.print("cat - | /data/video/usb/arpilot2.arm > /data/video/usb/plog.txt\n");
+  Serial.print("cat - | /data/video/usb/arpilot > /data/video/usb/plog.txt\n");
   delay(20000);
-  Serial.print("cat - | /data/video/usb/arpilot2.arm > /data/video/usb/plog.txt\n");
+  Serial.print("cat - | /data/video/usb/arpilot > /data/video/usb/plog.txt\n");
 
   delay(2000);
 
