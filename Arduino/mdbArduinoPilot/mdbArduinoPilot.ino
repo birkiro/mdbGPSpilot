@@ -49,14 +49,20 @@ TinyGPS        gps;
 int  fix_led = 13;
 
 /* Schoenaich */
-/*                        Lat,             Lon,       Ground Height, Fly Height */
+/*                        Lat,             Lon,       Ground Height, Fly Height *//*
 float waypoints[][8] ={{  48,39,46.53 ,    9,3,6.45,           0,            3 },
                        {  48,39,43.65 ,    9,3,5.71,           0,            5 },
                        {  48,39,44.32 ,    9,2,58.90,          0,            5 },
                        {  48,39,43.65 ,    9,3,5.71,           0,            5 },
                        {  48,39,43.01 ,    9,3,9.19,           0,            3 }};
-int num_waypoints = 5;
-char wp_location[]="Schoenaich 5WP";
+                       */
+/* Kollegium first test */
+/*                        Lat,             Lon,       Ground Height, Fly Height */                     
+float waypoints[][8] ={{ 54,54,3.1386,  9,48,28.7084,           0,            2 }};
+
+
+int num_waypoints = 1;
+char wp_location[]="Kollegium 1WP";
 
 /* Hausen am Bach */
 /*                        Lat,             Lon,       Ground Height, Fly Height
