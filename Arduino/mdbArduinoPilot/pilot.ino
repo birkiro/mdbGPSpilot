@@ -273,11 +273,11 @@ void pilot_end()
 
 void pilot_setup()
 {
-  Serial.print("\n\n$QUIT\n");
+  Serial.print("\n\n\n\n\n$QUIT\n\n");
   delay(1500);
-  Serial.print("cat - | /data/video/usb/arpilot > /data/video/usb/plog.txt\n");
+  Serial.print("cat - | ./data/video/arpilot.arm\n");      //no more USB, binary file in /data/video folder
   delay(20000);
-  Serial.print("cat - | /data/video/usb/arpilot > /data/video/usb/plog.txt\n");
+  Serial.print("cat - | ./data/video/arpilot.arm\n");
 
   delay(2000);
 
