@@ -220,13 +220,24 @@ int command_print(void)
 
     return 0;
 }
-int command_print_altitude(void){
-	printf("$STAT:altitude,%d\n",navdata_unpacked.navdata_demo.altitude);
-}
-int command_print_vx(void){
-	printf("$STAT:vx,%d\n",navdata_unpacked.navdata_demo.vx);
+
+int command_print_altitude(void)
+{
+	if(navdata_valid)
+	{
+		printf("$STAT:altitude,%d\n",navdata_unpacked.navdata_demo.altitude);
+	}
+	return 0;
 }
 
+int command_print_vx(void)
+{
+	if(navdata_valid)
+	{
+		printf("$STAT:vx,%f\n",navdata_unpacked.navdata_demo.vx);
+	}
+	return 0;
+}
 
 int command_record(int state)
 {
