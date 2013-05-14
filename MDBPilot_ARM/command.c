@@ -220,13 +220,6 @@ int command_print(void)
 
     return 0;
 }
-int command_print_altitude(void){
-	printf("$STAT:altitude,%d\n",navdata_unpacked.navdata_demo.altitude);
-}
-int command_print_vx(void){
-	printf("$STAT:vx,%d\n",navdata_unpacked.navdata_demo.vx);
-}
-
 
 int command_record(int state)
 {
