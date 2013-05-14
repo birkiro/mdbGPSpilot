@@ -31,6 +31,8 @@
 
 #include "states.h"
 
+#include "log_data.h"
+
 int  ini_cycle;
 int  init_state = 0;
 
@@ -145,6 +147,10 @@ int config_init()
     	init();
     	while (process() == 2);
     }
+    f = fopen("/data/video/navlog.txt","w");
 
+	if (f == NULL){
+		printf("Error opening navlog.txt file\n");
+	}
 	return 0;
 }
