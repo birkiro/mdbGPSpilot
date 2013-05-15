@@ -30,6 +30,7 @@
 
 int emergency_timestamp = 0;
 int emergency_active = 0;
+float z_hat = 0;
 
 int auto_monitor()
 {
@@ -116,4 +117,9 @@ int auto_monitor()
     }
 
     return ret;
+}
+
+float altitude_observer(int L)
+{
+	return z_hat;
 }
