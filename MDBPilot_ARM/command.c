@@ -220,6 +220,7 @@ int command_print(void)
 
     return 0;
 }
+<<<<<<< HEAD
 
 int command_print_altitude(void)
 {
@@ -238,6 +239,8 @@ int command_print_vx(void)
 	}
 	return 0;
 }
+=======
+>>>>>>> branch 'master' of https://github.com/birkiro/mdbGPSpilot.git
 
 int command_record(int state)
 {
