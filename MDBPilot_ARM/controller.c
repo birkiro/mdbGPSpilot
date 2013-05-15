@@ -38,6 +38,8 @@
 #include "network.h"
 #include "web.h"
 
+#include "log_data.h"
+
 unsigned int last_timestamp_nav = 0;
 unsigned int last_timestamp_command = 0;
 
@@ -220,7 +222,7 @@ int process()
     // Send an update packet to the drone
     // also: current flight instructions
     update_drone();
-
+    logdata();
     /* If the internal controller has been selected
      * we keep returning 2 here, this makes control
      * from the app impossible, except if it overrides
