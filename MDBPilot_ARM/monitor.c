@@ -30,7 +30,8 @@
 
 int emergency_timestamp = 0;
 int emergency_active = 0;
-float z_hat = 0;
+float z_hat_old	= 0.0;
+struct timeval ts;
 
 int auto_monitor()
 {
@@ -119,7 +120,16 @@ int auto_monitor()
     return ret;
 }
 
-float altitude_observer(int L)
+float altitude_observer(double L)
 {
+	float z_hat = 0.0;
+
+	if(drone_fly) // and something more I guess
+	{
+		T_old = Ts;
+
+		z_hat = z_hat_old + Ts*(navdata_unpacked.navdata_demo.vz + L*((float)navdata_unpacked.navdata_demo.altitude - z_hat_old));
+		z_hat_old = z_hat;
+	}
 	return z_hat;
 }

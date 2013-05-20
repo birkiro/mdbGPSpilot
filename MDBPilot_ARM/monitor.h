@@ -21,5 +21,5 @@
 #define MONITOR_H_
 
 int auto_monitor();
-
+float altitude_observer(double L, double Ts);
 #endif /* MONITOR_H_ */
