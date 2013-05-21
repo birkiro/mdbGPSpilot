@@ -47,7 +47,8 @@ void loop()
     {
       drone_sethomepos();  // Set Home Position, set global variables lat_home, lon_home
 //      drone_setwp(54.900700, 9.807400);   // Set Waypoint Position (longitude, latitude)
-      drone_setwp(54.913328, 9.779755);   // Set Waypoint Position (longitude, latitude)
+      //drone_setwp(54.913328, 9.779755);   // Set Waypoint Position (longitude, latitude)
+      drone_setwp(54.9060592651, 9.7946395874); // Ringrideplads
       Serial.print("Distance to wp:");
       Serial.println(calculate_distance(lat_home, lon_home, lat_wp, lon_wp));
       while(calculate_distance(lat_home, lon_home, lat_wp, lon_wp) > 500)
@@ -148,11 +149,13 @@ float calculate_heading(float target_waypoint)
 void drone_takeoff()
 {
   Serial.print("$STAT,1\n");
-  delay(6000);
+  delay(10000);
+  Serial.print("$HOVE\n");
+  delay(5000);
   Serial.print("$CALI\n");
   delay(6000);
   Serial.print("$ALTI,1500,0\n");
-  delay(3000);
+  delay(6000);
   flag_flying = 1;
 }
 
@@ -168,12 +171,12 @@ void drone_move(float dist_to_wp)
 {
 //  Serial.print("$ECHO,#");
 //  Serial.println(dist_to_wp);
-  int kp = (-50);
+  int kp = (-30);
   float tpitch = dist_to_wp * kp;
 //  Serial.print("$ECHO,#");
 //  Serial.println(tpitch);
   if(tpitch > 0) tpitch = 0;
-  if(tpitch < -1024) tpitch = -1024;
+  if(tpitch < -300) tpitch = -300;
   
 //  Serial.print("$ECHO,#");
 //  Serial.println(tpitch);
