@@ -115,12 +115,6 @@ int execcommand()
 
     if ((strncmp(command,"$PRIN",5) == 0) && args == 0)
         ret=command_print();
-	
-    if ((strncmp(command,"$PALT",5) == 0) && args == 0)
-        ret=command_print_altitude();
-
-    if ((strncmp(command,"$PRVX",5) == 0) && args == 0)
-        ret=command_print_vx();
 
     if ((strncmp(command,"$TURN",5) == 0) && args == 1)
         ret=command_turn(arg[0]);
