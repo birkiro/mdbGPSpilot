@@ -22,7 +22,7 @@ CC = arm-linux-gnueabi-gcc
 INSTALL = install
 TARGET = /usr/sbin
 
-LIB_OBJS=command.o controller.o emitter.o init.o log.o monitor.o navdata.o network.o pilot.o web.o
+LIB_OBJS=command.o controller.o emitter.o init.o log.o monitor.o navdata.o network.o pilot.o web.o log_data.o
 PROG_OBJS=arpilot.o
 LIB=arpilot.a
 PROG=arpilot
