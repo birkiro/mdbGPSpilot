@@ -32,12 +32,11 @@ void loop()
      //Serial.write(byte); 
      if (gps.encode(byte)) 
      {
+       gps.f_get_position(&flat, &flon, &fix_age);
        if ( gps_counter++ % 2 == 0) acquired = 1;
      }
     
   }
-  
-  gps.f_get_position(&flat, &flon, &fix_age);
   //Serial.println(acquired);
   if(acquired)
   {
@@ -47,7 +46,8 @@ void loop()
     while(i > 0)
     {
       drone_sethomepos();  // Set Home Position, set global variables lat_home, lon_home
-      drone_setwp(54.900700, 9.807400);   // Set Waypoint Position (longitude, latitude)
+//      drone_setwp(54.900700, 9.807400);   // Set Waypoint Position (longitude, latitude)
+      drone_setwp(54.913328, 9.779755);   // Set Waypoint Position (longitude, latitude)
       Serial.print("Distance to wp:");
       Serial.println(calculate_distance(lat_home, lon_home, lat_wp, lon_wp));
       if(calculate_distance(lat_home, lon_home, lat_wp, lon_wp) > 500)
@@ -55,7 +55,7 @@ void loop()
         Serial.print("$ECHO,#Distance too great! Flight Aborted! \n");
         Serial.print("Distance to wp:");
         Serial.println(calculate_distance(lat_home, lon_home, lat_wp, lon_wp));
-        while(1) delay(10000);  // Never fly, abort mission
+        //while(1) delay(10000);  // Never fly, abort mission
       }
       drone_takeoff();
       Serial.print("$ECHO,#We Have Liftoff! \n");
@@ -166,15 +166,21 @@ void head_to_target(float angle)
 
 void drone_move(float dist_to_wp)
 {
+//  Serial.print("$ECHO,#");
+//  Serial.println(dist_to_wp);
   int kp = (-50);
-  int tpitch = dist_to_wp * kp;
+  float tpitch = dist_to_wp * kp;
+//  Serial.print("$ECHO,#");
+//  Serial.println(tpitch);
   if(tpitch > 0) tpitch = 0;
   if(tpitch < -1024) tpitch = -1024;
-
+  
+//  Serial.print("$ECHO,#");
+//  Serial.println(tpitch);
   Serial.print("$MOVE,");
   Serial.print(0);
   Serial.print(",");
-  Serial.print(tpitch);
+  Serial.print(tpitch,0);
   Serial.print(",");
   Serial.print(0);
   Serial.print(",");
