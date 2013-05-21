@@ -30,7 +30,7 @@ void loop()
   {
      int byte = GPS.read();
      //Serial.write(byte); 
-     if (gps.encode(byte)) 
+     if(gps.encode(byte)) 
      {
        gps.f_get_position(&flat, &flon, &fix_age);
        if ( gps_counter++ % 2 == 0) acquired = 1;
@@ -51,7 +51,7 @@ void loop()
       drone_setwp(54.9060592651, 9.7946395874); // Ringrideplads
       Serial.print("Distance to wp:");
       Serial.println(calculate_distance(lat_home, lon_home, lat_wp, lon_wp));
-      while(calculate_distance(lat_home, lon_home, lat_wp, lon_wp) > 500)
+      while(calculate_distance(lat_home, lon_home, lat_wp, lon_wp) > 500) //Stay in loop when distance>500m
       {
         Serial.print("$ECHO,#Distance too great! Flight Aborted! \n");
         Serial.print("Distance to wp:");
