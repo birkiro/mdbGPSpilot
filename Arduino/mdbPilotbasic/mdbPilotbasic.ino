@@ -30,7 +30,7 @@ void loop()
   {
      int byte = GPS.read();
      //Serial.write(byte); 
-     if (gps.encode(byte)) 
+     if(gps.encode(byte)) 
      {
        gps.f_get_position(&flat, &flon, &fix_age);
        if ( gps_counter++ % 2 == 0) acquired = 1;
