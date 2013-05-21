@@ -30,6 +30,7 @@
 #include "network.h"
 
 #include "states.h"
+#include "log_data.h"
 
 int  ini_cycle;
 int  init_state = 0;
@@ -136,6 +137,13 @@ int config_init()
 			fprintf(stderr,"timeout, no valid navdata\n");
 			return -1;
 		}
+		f = fopen("/data/video/file.txt", "w");
+		if (f == NULL)
+		{
+		    printf("Error opening file!\n");
+		    exit(1);
+		}
+		else printf("file opened!");
 		process();
 	}
 
