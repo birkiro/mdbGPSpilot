@@ -10,6 +10,7 @@
 
 FILE *f;
 
+struct timeval ts;
 void logdata(void);
 
 
