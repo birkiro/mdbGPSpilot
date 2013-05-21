@@ -222,7 +222,7 @@ int process()
     // Send an update packet to the drone
     // also: current flight instructions
     update_drone();
-    logdata();
+    //logdata();
     /* If the internal controller has been selected
      * we keep returning 2 here, this makes control
      * from the app impossible, except if it overrides

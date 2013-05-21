@@ -124,16 +124,17 @@ unsigned long fix_age = 0;
 
 void loop()
 {
-  if (GPS.available()) {
+  if (GPS.available()) 
+  {
      int byte = GPS.read();
-//     Serial.write(byte);
+     // Serial.write(byte);
      
-     if (gps.encode(byte)) {
-//       Serial.println("Fix !");
+     if (gps.encode(byte)) 
+     {
+       // Serial.println("Fix !");
        digitalWrite(fix_led, HIGH);
        
-       if ( gps_counter++ % 2 == 0)
-         aquired = 1;
+       if ( gps_counter++ % 2 == 0) aquired = 1;
      }   
    }
 
