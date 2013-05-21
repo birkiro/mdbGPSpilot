@@ -50,7 +50,7 @@ void loop()
       drone_setwp(54.913328, 9.779755);   // Set Waypoint Position (longitude, latitude)
       Serial.print("Distance to wp:");
       Serial.println(calculate_distance(lat_home, lon_home, lat_wp, lon_wp));
-      while(calculate_distance(lat_home, lon_home, lat_wp, lon_wp) > 500)
+      while(calculate_distance(lat_home, lon_home, lat_wp, lon_wp) > 500) //Stay in loop when distance>500m
       {
         Serial.print("$ECHO,#Distance too great! Flight Aborted! \n");
         Serial.print("Distance to wp:");
