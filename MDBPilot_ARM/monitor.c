@@ -58,28 +58,34 @@ int auto_monitor()
 
         /* Flight height helpers
          * < 60cm -> go to 85cm altitude         */
-        if (drone_fly && (navdata_unpacked.navdata_demo.altitude < 600)){
-            pilot_altitude = 850;
+        if (drone_fly && (navdata_unpacked.navdata_demo.altitude < 800)){
+            pilot_altitude = 900;
             pilot_alti = 1;
             ret = 4;
         }
 
         /* Flight height helpers
          * try to hold the altitude exact to .5m          */
+//        if (drone_fly && monitor_alti && !pilot_alti) {
+//            if ( abs(navdata_unpacked.navdata_demo.altitude
+//                 + err_drone_altitude - pilot_altitude) > 500) {
+//                int alt = navdata_unpacked.navdata_demo.altitude
+//                      + err_drone_altitude;
+//
+//                if(alt < pilot_altitude){
+//                    drone_gaz = 200;
+//                }
+//                else {
+//                    drone_gaz = -200;
+//                }
+//                ret = 8;
+//            }
+//        }
+        float Kp_altitude = 2;
         if (drone_fly && monitor_alti && !pilot_alti) {
-            if ( abs(navdata_unpacked.navdata_demo.altitude
-                 + err_drone_altitude - pilot_altitude) > 500) {
-                int alt = navdata_unpacked.navdata_demo.altitude
-                      + err_drone_altitude;
-
-                if(alt < pilot_altitude){
-                    drone_gaz = 200;
-                }
-                else {
-                    drone_gaz = -200;
-                }
-                ret = 8;
-            }
+        	drone_gaz = Kp_altitude*(pilot_altitude - navdata_unpacked.navdata_demo.altitude);
+        	if (drone_gaz > 700) drone_gaz = 700;
+        	if (drone_gaz < -700) drone_gaz = -700;
         }
 
         /* Emergency detect
@@ -120,16 +126,16 @@ int auto_monitor()
     return ret;
 }
 
-float altitude_observer(double L)
-{
-	float z_hat = 0.0;
-
-	if(drone_fly) // and something more I guess
-	{
-		T_old = Ts;
-
-		z_hat = z_hat_old + Ts*(navdata_unpacked.navdata_demo.vz + L*((float)navdata_unpacked.navdata_demo.altitude - z_hat_old));
-		z_hat_old = z_hat;
-	}
-	return z_hat;
-}
+//float altitude_observer(double L)
+//{
+//	float z_hat = 0.0;
+//
+//	if(drone_fly) // and something more I guess
+//	{
+//		T_old = Ts;
+//
+//		z_hat = z_hat_old + Ts*(navdata_unpacked.navdata_demo.vz + L*((float)navdata_unpacked.navdata_demo.altitude - z_hat_old));
+//		z_hat_old = z_hat;
+//	}
+//	return z_hat;
+//}
