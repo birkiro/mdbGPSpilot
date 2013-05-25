@@ -256,7 +256,9 @@ int command_head(int angle)
 int command_alti(int altitude, int monitor_state)
 {
     pilot_altitude=altitude;
-    pilot_alti=1;
+    pilot_alti = 0;   	// Originally set to 1. By setting to 0,
+    					// we abandon height controllers in pilot.c
+    					// and in monitor.c, we use P-controller instead.
 
     monitor_alti = monitor_state;
 
