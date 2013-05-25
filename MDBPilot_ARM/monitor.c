@@ -81,12 +81,21 @@ int auto_monitor()
 //                ret = 8;
 //            }
 //        }
-        float Kp_altitude = 2;
+        float Kp_altitude 	= 3;
+
+        // Stabilize altitude with a P-controller, call for example "#ALTI,3000,1" in Arduino
+        // The Flag after the parameter has to be set to 1
         if (drone_fly && monitor_alti && !pilot_alti) {
         	drone_gaz = Kp_altitude*(pilot_altitude - navdata_unpacked.navdata_demo.altitude);
         	if (drone_gaz > 700) drone_gaz = 700;
         	if (drone_gaz < -700) drone_gaz = -700;
         }
+
+        float Kp_roll 		= 0.5;
+        float Kp_vy 		= 0.5;
+
+        drone_roll = (-Kp_roll * navdata_unpacked.navdata_demo.phi) +
+        			 (-Kp_vy * navdata_unpacked.navdata_demo.vy);   // Stabilize side disturbance
 
         /* Emergency detect
          * Switch off video recording after 20s  */
