@@ -8,10 +8,10 @@ unsigned long fix_age = 0;
 float lat_home, lon_home;
 float lat_wp, lon_wp;
 int flag_flying = 0;
-int  fix_led = 13;
 float flat, flon;
 unsigned long age;
 int wp_reached = 0;
+
 void setup()
 {
   bool fixed = false;
@@ -33,7 +33,7 @@ void loop()
      if(gps.encode(byte)) 
      {
        gps.f_get_position(&flat, &flon, &fix_age);
-       if ( gps_counter++ % 2 == 0) acquired = 1;
+       acquired = 1;
      }
     
   }
@@ -42,21 +42,22 @@ void loop()
   {
     drone_sendpos();
     
-    Serial.print("$ECHO,#Setting Home Position and Waypoint \n");
+//    Serial.print("$ECHO,#Setting Home Position and Waypoint \n");
     while(i > 0)
     {
       drone_sethomepos();  // Set Home Position, set global variables lat_home, lon_home
 //      drone_setwp(54.900700, 9.807400);   // Set Waypoint Position (longitude, latitude)
       //drone_setwp(54.913328, 9.779755);   // Set Waypoint Position (longitude, latitude)
 //      drone_setwp(54.9060592651, 9.7946395874); 
-      drone_setwp(54.900500, 9.807990);  
-      Serial.print("Distance to wp:");
+      //drone_setwp(54.900500, 9.807990);  
+      drone_setwp(54.90112, 9.80792);
+//      Serial.print("Distance to wp:");
       Serial.println(calculate_distance(lat_home, lon_home, lat_wp, lon_wp));
       while(calculate_distance(lat_home, lon_home, lat_wp, lon_wp) > 500) //Stay in loop when distance>500m
       {
-        Serial.print("$ECHO,#Distance too great! Flight Aborted! \n");
-        Serial.print("Distance to wp:");
-        Serial.println(calculate_distance(lat_home, lon_home, lat_wp, lon_wp));
+//        Serial.print("$ECHO,#Distance too great! Flight Aborted! \n");
+//        Serial.print("Distance to wp:");
+//        Serial.println(calculate_distance(lat_home, lon_home, lat_wp, lon_wp));
         delay(1000);
         while(1) delay(10000);  // Never fly, abort mission
       }
@@ -71,7 +72,7 @@ void loop()
     head_to_target(angle);
     drone_move(distance_to_wp);
     
-    if (distance_to_wp < 2) 
+    if (distance_to_wp < 3) 
     {
       drone_hove();
       delay(10000);
