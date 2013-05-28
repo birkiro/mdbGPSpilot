@@ -23,22 +23,39 @@ void setup()
 int gps_counter = 0;
 int acquired = 0;
 int i = 1;
+int j = 0;
+int home_average = 0;
+float sum_home_lat, sum_home_lon;
 
 void loop()
 { 
   if (GPS.available()) 
   {
+    //Serial.println("HDOP");
+    //Serial.println(gps.hdop());
      int byte = GPS.read();
      //Serial.write(byte); 
-     if(gps.encode(byte)) 
+     if(gps.encode(byte) && gps.hdop() < 150) 
      {
        gps.f_get_position(&flat, &flon, &fix_age);
        acquired = 1;
+       
+        if (j < 15){
+           sum_home_lat += flat; 
+           sum_home_lon += flon;
+           Serial.println(j);
+           Serial.println(flat,10);
+           Serial.println(flon,10);
+           Serial.println(gps.hdop());
+           j++;
+        }
+        else home_average = 1;
      }
-    
   }
+  
+  
   //Serial.println(acquired);
-  if(acquired)
+  if(acquired && home_average)
   {
     drone_sendpos();
     
@@ -106,8 +123,11 @@ void pilot_setup()
 
 void drone_sethomepos()
 {
-  lat_home = flat;
-  lon_home = flon;
+  lat_home = sum_home_lat/j;
+  lon_home = sum_home_lon/j;
+  Serial.println("AVERAGE");
+  Serial.println(lat_home,10);
+  Serial.println(lon_home,10);
 //  Serial.print("Home Coordinates: ");
 //  Serial.print(flat);
 //  Serial.print(", ");
@@ -161,7 +181,7 @@ void drone_takeoff()
   delay(5000);
   Serial.print("$CALI\n");
   delay(6000);
-  Serial.print("$ALTI,3000,1\n");
+  Serial.print("$ALTI,2000,1\n");
   delay(3000);
   flag_flying = 1;
 }
@@ -197,7 +217,7 @@ void drone_move(float dist_to_wp)
   Serial.print(0);
   Serial.print("\n");
   delay(200);
-  Serial.print("$ALTI,3000,1\n");
+  Serial.print("$ALTI,2000,1\n");
 }
 
 void drone_hove()
