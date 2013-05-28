@@ -40,13 +40,19 @@ int auto_pilot()
 
 //			printf("diff: %f\n",diff_angle);
 
-			if (diff_angle < 3000){
+			if (diff_angle < 2000){
 				drone_yaw  = 0;
 				pilot_head = 0;
 				return 1;
 			}
 			else {
-				int speed = 300;
+				int speed = 150;
+				if (abs(diff_angle > 10000))
+					speed = 300;
+
+				if (abs(diff_angle > 20000))
+					speed = 600;
+
 				if (abs(diff_angle > 35000))
 					speed = 900;
 
