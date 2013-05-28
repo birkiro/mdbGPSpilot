@@ -87,12 +87,12 @@ int auto_monitor()
         // The Flag after the parameter has to be set to 1
         if (drone_fly && monitor_alti && !pilot_alti) {
         	drone_gaz = Kp_altitude*(pilot_altitude - navdata_unpacked.navdata_demo.altitude);
-        	if (drone_gaz > 700) drone_gaz = 700;
-        	if (drone_gaz < -700) drone_gaz = -700;
+        	if (drone_gaz > 900) drone_gaz = 900;
+        	if (drone_gaz < -900) drone_gaz = -900;
         }
 
-        float Kp_roll 		= 0.5;
-        float Kp_vy 		= 0.5;
+        float Kp_roll 		= 0;
+        float Kp_vy 		= 0.4;
 
         drone_roll = (-Kp_roll * navdata_unpacked.navdata_demo.phi) +
         			 (-Kp_vy * navdata_unpacked.navdata_demo.vy);   // Stabilize side disturbance
