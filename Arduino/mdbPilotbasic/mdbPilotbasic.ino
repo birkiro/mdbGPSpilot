@@ -43,11 +43,12 @@ void loop()
         if (j < 15){
            sum_home_lat += flat; 
            sum_home_lon += flon;
-           Serial.println(j);
-           Serial.println(flat,10);
-           Serial.println(flon,10);
-           Serial.println(gps.hdop());
+           //Serial.println(j);
+           //Serial.println(flat,10);
+           //Serial.println(flon,10);
+           //Serial.println(gps.hdop());
            j++;
+           delay(100);
         }
         else home_average = 1;
      }
@@ -67,7 +68,7 @@ void loop()
       //drone_setwp(54.913328, 9.779755);   // Set Waypoint Position (longitude, latitude)
 //      drone_setwp(54.9060592651, 9.7946395874); 
       //drone_setwp(54.900500, 9.807990);  
-      drone_setwp(54.90112, 9.80792);
+      drone_setwp(54.89842, 9.81058);
 //      Serial.print("Distance to wp:");
       Serial.println(calculate_distance(lat_home, lon_home, lat_wp, lon_wp));
       while(calculate_distance(lat_home, lon_home, lat_wp, lon_wp) > 500) //Stay in loop when distance>500m
@@ -92,7 +93,7 @@ void loop()
     if (distance_to_wp < 3) 
     {
       drone_hove();
-      delay(10000);
+      delay(15000);
       if (!wp_reached){
         drone_setwp(lat_home,lon_home);
         wp_reached = 1 ;
@@ -119,6 +120,8 @@ void pilot_setup()
           max_euler 0.30
            altitude 50000 (50m)*/
   Serial.print("$LIMI,250,700,30,50000\n"); /*Not sure that this works yet*/
+  Serial.print("$TRIM\n");
+  delay(1000);
 }
 
 void drone_sethomepos()
